@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Web Scraper — Settings</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      color: #1a1a2e;
+      background: #f4f6fb;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+      color: white;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 8px rgba(26,115,232,0.3);
+    }
+
+    .header-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .header h1 { font-size: 20px; font-weight: 700; }
+    .header p  { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+
+    .container { max-width: 680px; margin: 28px auto; padding: 0 24px 40px; }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #8a92a6;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e8eaf0;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Template list */
+    .template-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .template-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #f8f9fc;
+      border: 1px solid #e8eaf0;
+      border-radius: 8px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .template-item:hover {
+      border-color: #c5d0f0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .template-item-info { flex: 1; }
+
+    .template-item-name {
+      font-weight: 700;
+      font-size: 13px;
+      color: #1a1a2e;
+      margin-bottom: 3px;
+    }
+
+    .template-item-meta {
+      font-size: 11px;
+      color: #a0a8be;
+      margin-bottom: 6px;
+    }
+
+    .template-item-fields {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .field-chip {
+      font-size: 10px;
+      background: #eceef8;
+      color: #5a6278;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .field-chip-type {
+      opacity: 0.6;
+      font-weight: 400;
+    }
+
+    .template-actions { display: flex; gap: 6px; align-items: flex-start; flex-shrink: 0; }
+
+    .btn {
+      padding: 6px 13px;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      letter-spacing: 0.1px;
+    }
+
+    .btn:active { transform: scale(0.96); }
+
+    .btn-rename { background: #e8f0fe; color: #1a73e8; }
+    .btn-rename:hover { background: #d2e3fc; }
+
+    .btn-delete { background: #fce8e6; color: #ea4335; }
+    .btn-delete:hover { background: #f5c6c2; }
+
+    .btn-danger { background: #ea4335; color: white; padding: 8px 16px; }
+    .btn-danger:hover { background: #c8311f; }
+
+    .empty-state {
+      text-align: center;
+      padding: 32px 0 24px;
+      color: #c0c4d0;
+    }
+
+    .empty-state-icon { font-size: 36px; margin-bottom: 10px; }
+    .empty-state p { font-size: 13px; line-height: 1.6; }
+
+    .danger-zone { border-color: #fce8e6; }
+    .danger-zone .section-title { color: #ea4335; }
+    .danger-desc { font-size: 12px; color: #888; margin-bottom: 14px; line-height: 1.5; }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a2e;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">&#9881;</div>
+  <div>
+    <h1>Web Scraper Settings</h1>
+    <p>Manage saved field templates · Universal Web Scraper v1.0</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <div class="section-title">Saved Templates</div>
+    <div id="template-list" class="template-list">
+      <div class="empty-state">
+        <div class="empty-state-icon">&#128196;</div>
+        <p>No templates yet.<br/>Save a field configuration from the popup to see it here.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card danger-zone">
+    <div class="section-title">Danger Zone</div>
+    <p class="danger-desc">Permanently delete all saved templates. This action cannot be undone.</p>
+    <button class="btn btn-danger" id="btn-clear-all">Delete All Templates</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="options.js"></script>
+</body>
+</html>

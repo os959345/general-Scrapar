@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Universal Web Scraper</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="../icons/icon48.png" alt="Logo" class="logo-icon" />
+      <span class="logo-text">Web Scraper</span>
+      <span class="version">v1.0</span>
+    </div>
+    <span id="conn-badge" class="conn-badge disconnected">Connecting…</span>
+  </div>
+
+  <div class="content">
+    <div class="status-bar">
+      <span class="status-dot idle"></span>
+      <span id="status-text">Connecting to page...</span>
+    </div>
+
+    <!-- M11: Auto-detect suggestion panel -->
+    <div id="auto-detect-panel" class="auto-detect-panel hidden">
+      <div class="auto-detect-header">
+        <span class="auto-detect-icon">&#128269;</span>
+        <span class="auto-detect-title">Auto-detected fields</span>
+        <span id="auto-detect-count" class="auto-detect-count"></span>
+      </div>
+      <div id="auto-detect-fields" class="auto-detect-fields"></div>
+      <div class="auto-detect-actions">
+        <button id="btn-auto-apply" class="btn btn-primary btn-auto-apply">Apply All</button>
+        <button id="btn-auto-dismiss" class="btn btn-secondary btn-auto-dismiss">Dismiss</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Fields to Scrape</h3>
+      <div id="fields-list" class="fields-list">
+        <p class="empty-hint">No fields selected yet.<br/>Click "Start Selection" to begin.</p>
+      </div>
+    </div>
+
+    <!-- M13: Template bar -->
+    <div class="template-bar">
+      <select id="template-select" class="template-select">
+        <option value="">Load template…</option>
+      </select>
+      <button id="btn-template-load"   class="btn btn-template-load" disabled>Load</button>
+      <button id="btn-template-save"   class="btn btn-template-save">Save</button>
+    </div>
+
+    <div class="actions">
+      <button id="btn-select" class="btn btn-primary" disabled>Start Selection</button>
+      <button id="btn-scrape" class="btn btn-success" disabled>Scrape Page</button>
+      <button id="btn-clear" class="btn btn-secondary">Clear All</button>
+    </div>
+    <div class="actions actions-scroll">
+      <button id="btn-scroll-scrape" class="btn btn-scroll" disabled>Scroll &amp; Scrape</button>
+      <button id="btn-paginate" class="btn btn-paginate" disabled>Paginate</button>
+    </div>
+
+    <!-- M14: Progress bar + controls -->
+    <div id="progress-panel" class="progress-panel hidden">
+      <div class="progress-bar-wrap">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <div class="progress-info">
+        <span id="progress-label" class="progress-label">0 items</span>
+        <div class="progress-controls">
+          <button id="btn-pause"  class="btn btn-pause">Pause</button>
+          <button id="btn-resume" class="btn btn-resume hidden">Resume</button>
+          <button id="btn-stop-scroll" class="btn btn-stop">Stop</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="results-section" class="section hidden">
+      <div class="results-header">
+        <h3 class="section-title">Results</h3>
+        <div class="export-btns">
+          <button id="btn-export-csv"  class="btn btn-export">CSV</button>
+          <button id="btn-export-json" class="btn btn-export btn-export-json">JSON</button>
+          <button id="btn-export-xlsx" class="btn btn-export btn-export-xlsx">Excel</button>
+        </div>
+      </div>
+      <p id="results-count" class="results-count">0 items found</p>
+      <div id="preview-table-wrap" class="preview-table-wrap hidden">
+        <table id="preview-table" class="preview-table"></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="../options/options.html" target="_blank" class="footer-link">&#9881; Settings</a>
+    <span class="footer-sep">|</span>
+    <span class="footer-link">Universal Web Scraper v1.0</span>
+  </div>
+
+  <script src="../lib/xlsx.mini.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
